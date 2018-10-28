@@ -27,6 +27,7 @@ let logged = [];
 let defaultMessage = 'Files compiled successfully';
 
 let options = {
+  title      : undefined,
   project    : undefined,
   exclusions : undefined,
   extra      : undefined,
@@ -56,7 +57,7 @@ function success() {
 
   logged = [];
   var args = [].slice.call(arguments);
-  let succesOptions = Object.assign({}, options);;
+  let succesOptions = Object.assign({}, options);
   let message = defaultMessage;
 
 	args.forEach(function(arg) {
@@ -101,7 +102,7 @@ function success() {
   return notify({
     icon     : _icon(),
     subtitle : succesOptions.project,
-    title    : logType + " <%= file.relative %>",
+    title    : succesOptions.title,
     message  : (file) => {
 
       let filepath = path.relative(process.cwd(), file.path);
@@ -109,14 +110,14 @@ function success() {
       if (typeof succesOptions.exclusions !== 'undefined' && filepath.includes(succesOptions.exclusions)) {
         return false;
       } else {
-
-        var messageLog = `${chalk.cyan(logType+":")} ${chalk.green(filepath)}`;
-
-        if ( succesOptions.delay ) {
-          logged.push(messageLog)
-        } else {
-          log(messageLog);
-        }
+        //
+        // var messageLog = `${chalk.cyan(logType+":")} ${chalk.green(filepath)}`;
+        //
+        // if ( succesOptions.delay ) {
+        //   logged.push(messageLog)
+        // } else {
+        //   log(messageLog);
+        // }
       }
 
       if (first == false) { return false; }
